@@ -49,7 +49,9 @@ CREATE TABLE IF NOT EXISTS `Artista` (
   `N°_Disco` int NOT NULL DEFAULT '0',
   `N°_Canciones` int NOT NULL DEFAULT '0',
   `Id_disco` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  KEY `FK_Artista_Disco` (`Id_disco`),
+  CONSTRAINT `FK_Artista_Disco` FOREIGN KEY (`Id_disco`) REFERENCES `Disco` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -64,7 +66,13 @@ CREATE TABLE IF NOT EXISTS `Canciones` (
   `IdDisco` int NOT NULL DEFAULT '0',
   `IdGenero` int NOT NULL DEFAULT '0',
   `IdArtista` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  KEY `FK_Canciones_Disco` (`IdDisco`),
+  KEY `FK_Canciones_Genero` (`IdGenero`),
+  KEY `FK_Canciones_Artista` (`IdArtista`),
+  CONSTRAINT `FK_Canciones_Artista` FOREIGN KEY (`IdArtista`) REFERENCES `Artista` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_Canciones_Disco` FOREIGN KEY (`IdDisco`) REFERENCES `Disco` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_Canciones_Genero` FOREIGN KEY (`IdGenero`) REFERENCES `Genero` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -74,7 +82,9 @@ CREATE TABLE IF NOT EXISTS `Canciones_Favoritas` (
   `Id` int NOT NULL,
   `Artista` varchar(50) NOT NULL DEFAULT '',
   `Id_Canciones` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  KEY `FK_Canciones_Favoritas_Canciones` (`Id_Canciones`),
+  CONSTRAINT `FK_Canciones_Favoritas_Canciones` FOREIGN KEY (`Id_Canciones`) REFERENCES `Canciones` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
@@ -86,7 +96,11 @@ CREATE TABLE IF NOT EXISTS `Disco` (
   `Año` varchar(50) NOT NULL DEFAULT '',
   `Id_Canciones` int NOT NULL DEFAULT '0',
   `Id_Artistas` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  KEY `FK_Disco_Canciones` (`Id_Canciones`),
+  KEY `FK_Disco_Artista` (`Id_Artistas`),
+  CONSTRAINT `FK_Disco_Artista` FOREIGN KEY (`Id_Artistas`) REFERENCES `Artista` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_Disco_Canciones` FOREIGN KEY (`Id_Canciones`) REFERENCES `Canciones` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
