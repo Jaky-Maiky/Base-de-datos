@@ -32,5 +32,5 @@ from Disco, Genero, Artista
 where Disco.Id=Genero.Id and Disco.Id = Artista.Id /*and Genero.Id= Plays_List.Id
 order by Nombre_Artista DESC;*/
 
-SELECT * from Discografia;
+/*SELECT * from Discografia;*/
 
