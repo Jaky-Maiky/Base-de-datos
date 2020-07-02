@@ -18,8 +18,6 @@
 --
 -- Table structure for table `album`
 --
-CREATE DATABASE Spotify;
-USE Spotify; 
 
 DROP TABLE IF EXISTS `album`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
